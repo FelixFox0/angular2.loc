@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.11/angular.js"></script>
+        <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="/src/style.css" />
+        <title>Tournament101 - Final Results</title>
+    </head>
+    <body>
+        <div ng-app="myApp" ng-controller="scoreTable"> 
+            <div class="container">
+                <h1>Tournament101 - Final Results</h1>
+                <form id="add">
+                    <h3>Add player</h3>
+                    <div class="form-group">
+                        <label>Name:</label>
+                        <input class="form-control" type="text" ng-model="user.name">
+                    </div>
+                    <div class="form-group">
+                        <label>Level:</label>
+                        <select class="form-control" ng-model="user.level">
+                            <option value="" disabled="disabled">select</option>
+                            <option value="rookie">rookie</option>
+                            <option value="amateur">amateur</option>
+                            <option value="pro">pro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Score:</label>
+                        <input class="form-control" type="text" ng-model="user.score">
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <label>Suspected:</label>
+                        <input id="false" class="form-check-input" type="radio" ng-model="user.suspected" value="0">
+                        <label class="form-check-label" for="false">false</label>
+                        <input id="true" class="form-check-input" type="radio" ng-model="user.suspected" value="1">
+                        <label class="form-check-label" for="true">true</label>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-primary mb-2" ng-click="send()">Send</button>
+                    </div>
+                </form>
+                <form id="filter">
+                    <h3>Search players</h3>
+                    <div class="form-group">
+                        <label>Search:</label>
+                        <input ng-keyup="search()" class="form-control" type="text" ng-model="filter.search">
+                    </div>
+                    <div class="form-group">
+                        <label>Level:</label>
+                        <select ng-change="search()" class="form-control" ng-model="filter.level">
+                            <option value="">All</option>
+                            <option value="rookie">rookie</option>
+                            <option value="amateur">amateur</option>
+                            <option value="pro">pro</option>
+                        </select>
+                    </div>
+                </form>  
+                <table class="table table-striped table-dark">
+                    <thead>
+                        <tr>
+                            <th scope="col">id</th>
+                            <th scope="col">name</th>
+                            <th scope="col">level</th>
+                            <th scope="col">score</th>
+                        </tr>
+                    </thead>
+                    <tr ng-repeat="x in names">
+                        <td ng-class="x.suspected? 'red' : ''">{{ x.id }}</td>
+                        <td ng-class="x.suspected? 'red' : ''">{{ x.name | lowercase}}</td>
+                        <td ng-class="x.suspected? 'red' : ''">{{ x.level}}</td>
+                        <td ng-class="x.suspected? 'red' : ''">{{ x.score}}</td>
+                    </tr>
+                </table>
+                <ul class="pagination-sm ng-pristine ng-untouched ng-valid ng-isolate-scope pagination ng-not-empty" >
+                    <li ng-repeat="y in pagination" ng-class="(y==thisPage)? 'active' : ''"><a href="" ng-click="selectPage(y)">{{ y }}</a></li>
+                </ul>
+            </div>
+        </div>
+        <script src="/src/app.js"></script>
+    </body>
+</html>
